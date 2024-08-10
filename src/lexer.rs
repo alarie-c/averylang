@@ -61,6 +61,7 @@ impl<'a> Lexer<'a> {
 
                 // Literals
                 [b'"', ..] => self.str_literal(),
+                [x, ..] if x.is_ascii_digit() => self.num_literal(),
                 [x, ..] if x.is_ascii_alphabetic() => {
                     // Save current index for token span
                     let begin = self.idx;
@@ -73,9 +74,9 @@ impl<'a> Lexer<'a> {
                         "elif" => self.static_add_token(TokenKind::Elif, begin, 4),
                         "while" => self.static_add_token(TokenKind::While, begin, 5),
                         "for" => self.static_add_token(TokenKind::For, begin, 3),
-                        _ => self.static_add_token(TokenKind::Identifier(identifier), begin, begin - self.idx)
+                        _ => self.static_add_token(TokenKind::Identifier(identifier), begin, self.idx - begin)
                     }
-                }
+                },
 
                 // Other
                 _ => panic!("! Bad token !"),
@@ -117,14 +118,36 @@ impl<'a> Lexer<'a> {
         self.static_add_token(TokenKind::Literal(buf.to_owned()), begin, self.idx - begin);
     }
 
+    fn num_literal(&mut self) {
+        let begin = self.idx;
+        let mut buf = String::from(self.src[self.idx] as char);
+        self.idx += 1;
+        
+        while self.idx < self.src.len() {
+            if self.src[self.idx].is_ascii_digit() || self.src[self.idx] == b'_' || self.src[self.idx] == b'.' {
+                buf.push(self.src[self.idx] as char);
+                self.idx += 1;
+            } else {
+                break;
+            }
+        }
+
+        // Push new token
+        self.static_add_token(TokenKind::Literal(buf.to_owned()), begin, self.idx - begin);
+    }
+
     fn take_ident(&mut self) -> String {
         let mut buf = String::from(self.src[self.idx] as char);
         self.idx += 1;
 
         // Push all consecutive alphanumeric characters
-        while self.idx < self.src.len() && self.src[self.idx].is_ascii_alphanumeric() {
-            buf.push(self.src[self.idx] as char);
-            self.idx += 1;
+        while self.idx < self.src.len() {
+            if self.src[self.idx].is_ascii_alphanumeric() || self.src[self.idx] == b'_' {
+                buf.push(self.src[self.idx] as char);
+                self.idx += 1;
+            } else {
+                break;
+            }
         }
 
         buf
