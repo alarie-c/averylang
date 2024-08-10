@@ -2,7 +2,7 @@
 This is a language I'm using primarily to learn about compilers in Rust. The goal is to make a language that is inherently suited to data science, data analysis, data visualization, statistics, etc.
 
 **Timeline**
-8/8 - redo everything :D
+ - 8/8 - redo everything :D
 
 **Major Projects**
 - [ ] Lexer

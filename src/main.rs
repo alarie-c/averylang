@@ -1,4 +1,5 @@
 use std::{process, env, fs};
+use lexer::Lexer;
 
 mod lexer;
 mod token;
@@ -6,15 +7,18 @@ mod token;
 fn main() {
     let args: Vec<String> = env::args().collect();
     
-    // analyze arguments
+    // Analyze arguments
     if args.len() == 2 {
-        // use for provided source file compilation
-        let source = fs::read_to_string(&args[1]).expect("Error loading source file");
+        let src = fs::read_to_string(&args[1]).expect("Error loading source file");
+        
+        let mut lexer = Lexer::new(&src);
+        let tokens = lexer.scan();
+        dbg!(&tokens);
     
     } else if args.len() > 2 {
-        // TODO: analyze tags and commands for debugging
+        // TODO: Analyze tags and commands for debugging
     } else {
-        println!("Usage: owl r [file path] -tags");
+        println!("Usage: ...");
         process::exit(1)
     }
 }

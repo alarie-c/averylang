@@ -1,6 +1,7 @@
 use std::ops::{Bound, Range, RangeBounds};
 
 // Stores beginning and ending information for a token
+#[derive(Debug)]
 pub struct TextSpan {
     pub begin: usize,
     pub end: usize,
@@ -8,8 +9,8 @@ pub struct TextSpan {
 
 // Methods for creating spans and getting the length
 impl TextSpan {
-    pub fn new(begin: usize, end: usize) -> Self {
-        TextSpan { begin, end }
+    pub fn new(begin: usize, text: &str) -> Self {
+        TextSpan { begin, end: begin + (text.len() - 1) }
     }
 
     pub fn len(&self) -> usize {
@@ -36,15 +37,21 @@ impl Into<Range<usize>> for TextSpan {
 }
 
 // Store the kind and span of a single token
+#[derive(Debug)]
 pub struct Token {
     pub kind: TokenKind,
     pub span: TextSpan,
 }
 
 // Enumeration of every token type and the data stored with it
+#[derive(Debug)]
 pub enum TokenKind {
     RPar,
     LPar,
+    RBrac,
+    LBrac,
+    RCurl,
+    LCurl,
 
     Plus,
     PlusEqual,
