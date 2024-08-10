@@ -3,6 +3,7 @@ This is a language I'm using primarily to learn about compilers in Rust. The goa
 
 **Timeline**
  - 8/8 - redo everything :D
+ - 8/10 - basic lexer is more or less done
 
 **Major Projects**
 - [ ] Lexer

@@ -68,6 +68,10 @@ pub enum TokenKind {
     Hash,
     Arrow,
     Logger,
+    Colon,
+    Semicolon,
+    Dot,
+    Comma,
 
     // Comparisons
     Equal,

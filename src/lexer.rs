@@ -48,6 +48,10 @@ impl<'a> Lexer<'a> {
                 [b'#', ..] => self.add_token(TokenKind::Hash, self.idx, 1),
                 [b'$', ..] => self.add_token(TokenKind::Logger, self.idx, 1),
                 [b'^', ..] => self.add_token(TokenKind::Exponent, self.idx, 1),
+                [b';', ..] => self.add_token(TokenKind::Semicolon, self.idx, 1),
+                [b'.', ..] => self.add_token(TokenKind::Dot, self.idx, 1),
+                [b',', ..] => self.add_token(TokenKind::Comma, self.idx, 1),
+                [b':', ..] => self.add_token(TokenKind::Colon, self.idx, 1),
                 
                 // Comparison tokens
                 [b'=', b'=', ..] => self.add_token(TokenKind::EqualEqual, self.idx, 2),
