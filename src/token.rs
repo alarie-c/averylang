@@ -9,8 +9,8 @@ pub struct TextSpan {
 
 // Methods for creating spans and getting the length
 impl TextSpan {
-    pub fn new(begin: usize, text: &str) -> Self {
-        TextSpan { begin, end: begin + (text.len() - 1) }
+    pub fn new(begin: usize, len: usize) -> Self {
+        TextSpan { begin, end:  begin + usize::saturating_sub(len, 1) }
     }
 
     pub fn len(&self) -> usize {
