@@ -46,6 +46,7 @@ pub struct Token {
 // Enumeration of every token type and the data stored with it
 #[derive(Debug)]
 pub enum TokenKind {
+    // Grouping
     RPar,
     LPar,
     RBrac,
@@ -53,6 +54,42 @@ pub enum TokenKind {
     RCurl,
     LCurl,
 
+    // Operators
     Plus,
     PlusEqual,
+    Minus,
+    MinusEqual,
+    Modulo,
+    Ampersand,
+    Exponent,
+    Star,
+    Slash,
+    SlashSlash,
+    Hash,
+    Arrow,
+    Logger,
+
+    // Comparisons
+    Equal,
+    EqualEqual,
+    Less,
+    LessEqual,
+    More,
+    MoreEqual,
+    Bang,
+    BangEqual,
+
+    // Literals
+    Literal(String),
+    Identifier(String),
+
+    // Keywords
+    If,
+    Else,
+    Elif,
+    While,
+    For,
+
+    // Other
+    EndOfFile,
 }
