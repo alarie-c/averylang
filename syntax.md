@@ -3,7 +3,7 @@ Avery syntax is designed to be familiar and promote type safety and ensure the d
 
 **EVERYTHING HERE IS TENTATIVE AND TEMPORARY**
 
-**Declaring Variables**
+## Declaring Variables
 Variables (values) are immutable by default. To make one, declare the variable name, optionally a type, and it's value.
 ```
 x = 10
@@ -30,17 +30,25 @@ mut a int // Creates a mutable integer variable "a"
 b str // Creates an immutable string value "b"
 ```
 
-Know that despite being assigned a default value, these variables are not "assigned" and but have a value given to them via the assignment operator before being able to be read or mutated.
+Know that despite being assigned a default value, these variables are not "assigned" and must have a value given to them via the assignment operator before being able to be read or mutated.
 ```
 mut a int
 $ a
 ```
-*The above is invalid code. Variables that have not been assigned a value cannot be read*
+*^ The above is invalid code. Variables that have not been assigned a value cannot be read*
 
 ```
 mut a int
-a -> 5
+a = 5
 $ a
 ```
-*The above code is valid and prints `5` upon execution*
+*^ The above code is valid and prints `5` upon execution*
 
+Variable names are allowed to have `_` characters, however, that is it.
+Variable names that begin with numbers are invald, they will be tokenized as number literals
+
+```
+_a str = "Hello"         // Valid
+a-string str = "Hello"   // Invalid, tokenizes to (a) - (string)
+1st_string str = "Hello" // Invalid, tokenizes to (1) (st_string)
+```
