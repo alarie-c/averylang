@@ -1,7 +1,11 @@
 # Literals
 
 8/10/2024
-Number and string literals are weird because they aren't separated into number or string until parsing even though string literals are so clearly marked with quotations.
+~~Number and string literals are weird because they aren't separated into number or string until parsing even though string literals are so clearly marked with quotations.~~
+
+Sike! I'm splitting up number and string literals in the lexer because its just so much easier.
+
+Same stuff from before still applies...
 
 String literals have to keep their quotations lest it fuck with the text spans and where the string literal actually is.
 Number literals do not have to do this, however I still have to include the periods and underscores for similar reasons.
