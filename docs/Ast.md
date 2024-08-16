@@ -11,10 +11,9 @@ Node Types {
             rhs: Node
         }
     )
-    
+
     Number{
         value: i32
     }
 }
-
 ```
