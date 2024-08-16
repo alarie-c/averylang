@@ -85,6 +85,7 @@ pub enum TokenKind {
 
     // Literals
     Literal(String),
+    Number(String),
     Identifier(String),
 
     // Keywords

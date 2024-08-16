@@ -137,7 +137,7 @@ impl<'a> Lexer<'a> {
         }
 
         // Push new token
-        self.static_add_token(TokenKind::Literal(buf.to_owned()), begin, self.idx - begin);
+        self.static_add_token(TokenKind::Number(buf.to_owned()), begin, self.idx - begin);
     }
 
     fn take_ident(&mut self) -> String {

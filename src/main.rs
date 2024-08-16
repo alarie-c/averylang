@@ -1,8 +1,11 @@
 use std::{process, env, fs};
 use lexer::Lexer;
+use parser::Parser;
 
 mod lexer;
 mod token;
+mod parser;
+mod ast;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -14,6 +17,10 @@ fn main() {
         let mut lexer = Lexer::new(&src);
         let tokens = lexer.scan();
         dbg!(&tokens);
+
+        let mut parser = Parser::new(tokens);
+        parser.parse();
+        dbg!(&parser.ast);
     
     } else if args.len() > 2 {
         // TODO: Analyze tags and commands for debugging
