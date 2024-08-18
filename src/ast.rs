@@ -12,7 +12,9 @@ impl Ast {
 #[derive(Debug)]
 pub enum Node {
     BinaryExpr(BinaryExpr),
+    BoolExpr(bool),
     Integer(i32),
+    String(String),
 }
 
 #[derive(Debug)]

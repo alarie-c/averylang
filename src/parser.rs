@@ -1,5 +1,3 @@
-use std::cell::RefCell;
-
 use crate::{ast::{Ast, BinaryExpr, BinaryOperator, Node}, token::{Token, TokenKind}};
 
 pub struct Parser<'a> {
@@ -47,8 +45,15 @@ impl<'a> Parser<'a> {
                 } else {
                     return None;
                 }
-            }
-            _ => None
+            },
+            TokenKind::Literal(_) => {
+                if let Some(result) = self.parse_literal() {
+                    return Some(result)
+                } else {
+                    return None;
+                }
+            },
+            _ => None,
         }
     }
 
@@ -90,6 +95,15 @@ impl<'a> Parser<'a> {
         }
     }
 
+    fn parse_literal(&mut self) -> Option<Node> {
+        match &self.current.kind {
+            TokenKind::Literal(value) => {
+                Some(Node::String(value.to_string()))
+            },
+            _ => panic!("{:#?}, Not a literal!", &self.current.kind)
+        }
+    }
+
     fn expect_number(&mut self, offset: usize, dir: &str) -> Option<Node> {
         match dir {
             "fwd" => {
@@ -111,7 +125,7 @@ impl<'a> Parser<'a> {
                 } else {
                     None
                 }
-            }
+            },
             _ => panic!("Invalid direction")
         }
     }
